@@ -117,4 +117,3 @@ export const Login = () => {
     </>
   );
 };
-// https://accounts.google.com/gsi/select?client_id=54023638768-8f53c4lvchav4r2r99us60iue5p6mki8.apps.googleusercontent.com&ux_mode=popup&ui_mode=card&as=MrrSPomiWkj8LwQjFNQ%2Fuw&channel_id=9e965d12a10c343cca933f5daa0b9bc0bc5f8c7b9ec02a02b4ee4b0a8d47e644&origin=http%3A%2F%2Flocalhost%3A3000
