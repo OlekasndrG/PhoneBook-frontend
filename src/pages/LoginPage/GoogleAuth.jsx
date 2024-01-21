@@ -11,8 +11,9 @@ import { useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import { setGoogleAuth } from 'redux/auth/authSlice';
 
-const BASE_URL = process.env.REACT_APP_PRODUCTION_URL;
 export const GoogleRedirect = () => {
+  const BASE_URL = process.env.REACT_APP_PRODUCTION_URL;
+  console.log(BASE_URL);
   const [searchParams] = useSearchParams();
 
   const dispatch = useDispatch();
@@ -39,7 +40,9 @@ export const GoogleRedirect = () => {
 
   return (
     <>
-      <a href={`${BASE_URL}/users/google`}>Google authorization</a>
+      <a href="https://phonebook-backend-5bos.onrender.com/api/users/google">
+        Google authorization
+      </a>
     </>
   );
 };
