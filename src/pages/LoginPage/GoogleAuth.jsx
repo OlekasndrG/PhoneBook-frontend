@@ -11,7 +11,7 @@ import { useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import { setGoogleAuth } from 'redux/auth/authSlice';
 
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+const BASE_URL = process.env.REACT_APP_PRODUCTION_URL;
 export const GoogleRedirect = () => {
   const [searchParams] = useSearchParams();
 
