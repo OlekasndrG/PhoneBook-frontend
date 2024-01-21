@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import axios from 'axios';
-import { instance } from 'redux/auth/AuthOperations';
+
 // const BASE_URL = process.env.REACT_APP_BASE_URL;
 // const baseUrl = 'https://connections-api.herokuapp.com';
 const baseUrl = process.env.REACT_APP_PRODUCTION_URL;

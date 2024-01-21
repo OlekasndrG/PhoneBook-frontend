@@ -1,25 +1,20 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Contact, FirstLetterDiv, SearchButton } from './Contacts.styled';
-import { ReactComponent as DeleteIcon } from '../../images/DeleteIcon.svg';
-import DeleteModal from 'components/modal/DeleteModal';
+import { Contact, SearchButton } from './Contacts.styled';
+
 import defaultimage from '../../images/photo.jpg';
-import {
-  useDeleteContactMutation,
- 
-  useUpdateContactMutation,
-} from 'redux/contacts/contactsOperations';
+import { useUpdateContactMutation } from 'redux/contacts/contactsOperations';
 import Loader from 'components/Loader/Loader';
 import { Modal } from 'Utils/Modal/Modal';
 import { EditContactModal } from './EditContactModal/EditContactModal.jsx';
 
 export const EditedContactItem = ({ contact }) => {
-  const [deleteContactTrigger] = useDeleteContactMutation();
-  const [updateContact, { isLoading }] = useUpdateContactMutation();
+  // const [deleteContactTrigger] = useDeleteContactMutation();
+  const [{ isLoading }] = useUpdateContactMutation();
   const [avatar, setAvatar] = useState(contact.preview);
   const [file, setFile] = useState(null);
   const [openEditModal, setOpenEditModal] = useState(false);
-
+  console.log(file);
   // console.log(evenetEmitter.setMaxListeners());
   const uploadFile = e => {
     if (!e.target.files[0]) return;
@@ -32,19 +27,19 @@ export const EditedContactItem = ({ contact }) => {
     setFile(e.target.files[0]);
   };
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append('_id', contact._id);
-    if (file) {
-      formData.append('documents', file);
-    }
+  // const handleSubmit = e => {
+  //   e.preventDefault();
+  //   const formData = new FormData();
+  //   formData.append('_id', contact._id);
+  //   if (file) {
+  //     formData.append('documents', file);
+  //   }
 
-    updateContact(formData);
-  };
-  const deleteContact = id => {
-    deleteContactTrigger(id);
-  };
+  //   updateContact(formData);
+  // };
+  // const deleteContact = id => {
+  //   deleteContactTrigger(id);
+  // };
 
   return (
     <>

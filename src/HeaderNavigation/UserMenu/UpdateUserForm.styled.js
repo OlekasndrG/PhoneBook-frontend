@@ -1,4 +1,3 @@
-import { SearchButton } from 'components/Contacts/Contacts.styled';
 import styled from 'styled-components';
 import { Form } from 'formik';
 

@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { Contact, FirstLetterDiv, SearchButton } from './Contacts.styled';
 import { ReactComponent as DeleteIcon } from '../../images/DeleteIcon.svg';
 import DeleteModal from 'components/modal/DeleteModal';
-import defaultimage from '../../images/photo.jpg';
+
 import {
   useDeleteContactMutation,
-  useFetchContactsQuery,
+  
   useUpdateContactMutation,
 } from 'redux/contacts/contactsOperations';
 export const ContactListItem = ({ contact }) => {

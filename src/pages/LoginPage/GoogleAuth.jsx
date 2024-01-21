@@ -10,7 +10,7 @@ import { useSearchParams } from 'react-router-dom';
 // import { StyledLoaderWrapper } from './GoogleRedirect.styled';
 import axios from 'axios';
 import { setGoogleAuth } from 'redux/auth/authSlice';
-import { loginUser } from 'redux/auth/AuthOperations';
+
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 export const GoogleRedirect = () => {
   const [searchParams] = useSearchParams();

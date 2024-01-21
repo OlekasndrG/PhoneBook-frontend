@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { DeleteModalContainer } from './DeleteModal.styled';
 import { useDeleteContactMutation } from 'redux/contacts/contactsOperations';
 import { Modal } from 'Utils/Modal/Modal';

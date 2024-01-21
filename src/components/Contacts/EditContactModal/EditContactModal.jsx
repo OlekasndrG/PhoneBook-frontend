@@ -1,29 +1,27 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+
 import { useAuth } from 'Utils/Hooks/useAuth';
-import { ReactComponent as DeleteIcon } from '../../../images/DeleteIcon.svg';
+
 import DeleteModal from 'components/modal/DeleteModal';
 
 import defaultimage from '../../../images/photo.jpg';
 import { useUpdateContactMutation } from 'redux/contacts/contactsOperations';
-import Loader from 'components/Loader/Loader';
-import { Modal } from 'Utils/Modal/Modal';
 
 export const EditContactModal = ({ contact, onClose }) => {
   console.log('render EditContact modal');
   const { subscription } = useAuth();
 
-  const [updateContact, { isLoading }] = useUpdateContactMutation();
+  const [updateContact] = useUpdateContactMutation();
   const [avatar, setAvatar] = useState(contact.preview);
   const [file, setFile] = useState(null);
   const [name, setName] = useState(contact.name);
   const [number, setNumber] = useState(contact.number);
   const [favorite, setFavorite] = useState(contact.favorite);
-  // const [name, setName] = useState(contact.name);
+
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
-  const businessSub = subscription === 'business';
-  const starterSub = subscription === 'starter';
+  // const businessSub = subscription === 'business';
+  // const starterSub = subscription === 'starter';
   console.log(subscription === 'business');
 
   const uploadFile = e => {
@@ -66,7 +64,7 @@ export const EditContactModal = ({ contact, onClose }) => {
           contact={contact}
         />
       )}
-    
+
       <form>
         <label htmlFor="name">
           <input
