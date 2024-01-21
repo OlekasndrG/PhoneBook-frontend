@@ -4,7 +4,7 @@ import axios from 'axios';
 import { instance } from 'redux/auth/AuthOperations';
 // const BASE_URL = process.env.REACT_APP_BASE_URL;
 // const baseUrl = 'https://connections-api.herokuapp.com';
-const baseUrl = process.env.REACT_APP_BASE_URL;
+const baseUrl = process.env.REACT_APP_PRODUCTION_URL;
 // REACT_APP_BASE_URL;
 
 export const fetchContacts = createAsyncThunk(
@@ -67,7 +67,6 @@ export const contactsRTK = createApi({
 
       return headers;
     },
-    
   }),
   tagTypes: ['Contact'],
   endpoints: builder => ({
