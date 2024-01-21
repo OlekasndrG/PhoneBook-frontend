@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.a5f45aa0.css",
+    "main.js": "/static/js/main.2a0256c6.js",
+    "static/media/Car.gif": "/static/media/Car.d823da6b425f9fe8da83.gif",
+    "static/media/photo.jpg": "/static/media/photo.894ec623b3e2a62edcbf.jpg",
+    "static/media/monobankPhoto.jpg": "/static/media/monobankPhoto.8dfeecf6e5cb9c7d278f.jpg",
+    "index.html": "/index.html",
+    "main.a5f45aa0.css.map": "/static/css/main.a5f45aa0.css.map",
+    "main.2a0256c6.js.map": "/static/js/main.2a0256c6.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a5f45aa0.css",
+    "static/js/main.2a0256c6.js"
+  ]
+}
