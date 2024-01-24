@@ -9,9 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { getUserName } from 'redux/selectors';
 
 import DefaultButton from 'Utils/Button';
-
-// import { getUserEmail } from 'redux/selectors';
-// import { Navigate } from 'react-router-dom';
+import GoogleRedirect from 'components/GoogleAuth/GoogleAuth';
 
 export const Registration = () => {
   const [state, setState] = useState({ name: '', email: '', password: '' });
@@ -30,64 +28,49 @@ export const Registration = () => {
   const handleSubmit = e => {
     e.preventDefault();
     dispatch(registerUser(state));
-
-    // setDisabled(true);
-
-    //  toast.success('Registered successfully! Redirecting to Home Page');
   };
 
-  // useEffect(() => {
-  //   if (email && password && name) setDisabled(false);
-  // }, [email, password, name]);
   useEffect(() => {
     if (user) {
-      console.log('useeer');
       navigate('/login', { replace: true });
     }
   }, [navigate, user]);
   return (
-    <div>
-      (
-      <LoginForm onSubmit={handleSubmit} autoComplete="off">
-        <h1>Register</h1>
-        <label>
-          Name
-          <input type="text" name="name" value={name} onChange={handleChange} />
-        </label>
+    <LoginForm onSubmit={handleSubmit}>
+      <h1>Register Page</h1>
+      <label>
+        Name
+        <input type="text" name="name" value={name} onChange={handleChange} />
+      </label>
 
-        <label style={{ marginLeft: '4px' }}>
-          Email
-          <input
-            type="email"
-            name="email"
-            value={email}
-            onChange={handleChange}
-          />
-        </label>
+      <label>
+        Email
+        <input
+          type="email"
+          name="email"
+          value={email}
+          onChange={handleChange}
+        />
+      </label>
 
-        <label style={{ marginRight: '24px' }}>
-          Password
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={handleChange}
-          />
-        </label>
+      <label>
+        Password
+        <input
+          type="password"
+          name="password"
+          value={password}
+          onChange={handleChange}
+        />
+      </label>
 
-        {/* <button type="submit" disabled={!disabledButton}>
-          <Loader></Loader>
-        </button> */}
-        <DefaultButton
-          type="submit"
-          disabled={!disabledButton}
-          aria-label="register-button"
-          // text={<p>Register</p>}
-        >
-          Register
-        </DefaultButton>
-      </LoginForm>
-      )
-    </div>
+      <DefaultButton
+        type="submit"
+        disabled={!disabledButton}
+        aria-label="register-button"
+      >
+        Register
+      </DefaultButton>
+      <GoogleRedirect />
+    </LoginForm>
   );
 };

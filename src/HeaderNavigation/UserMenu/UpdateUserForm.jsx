@@ -4,7 +4,17 @@ import { Formik, Field } from 'formik';
 
 import defaultimage from '../../images/photo.jpg';
 import monobankPhoto from '../../images/monobankPhoto.jpg';
-import { FormContainer } from './UpdateUserForm.styled';
+import {
+  AvatarImage,
+  AvatarInput,
+  AvatarLabel,
+  CrossSVG,
+  FormContainer,
+  ModalButton,
+  PlusSVG,
+  RadioContainer,
+} from './UpdateUserForm.styled';
+
 import { updateUser } from 'redux/auth/AuthOperations';
 import { useAuth } from 'Utils/Hooks/';
 
@@ -13,22 +23,10 @@ function UserInfoModal2({ onClose }) {
   const dispatch = useDispatch();
   const [picture, setPicture] = useState(avatar || defaultimage);
   console.log('rebeder USermodal');
+  console.log();
   const handleSubmit = (values, actions) => {
     const formData = new FormData();
 
-    // if (values.name) {
-    //   formData.append('name', values.name);
-    // }
-
-    // if (values.file) {
-    //   formData.append('avatar', values.file);
-    // }
-    // if (values.subscription) {
-    //   formData.append('subscription', values.subscription);
-    // }
-    // if (values.zalupa) {
-    //   formData.append('zalupa', values.zalupa);
-    // }
     Object.keys(values).forEach(key => {
       if (key === 'file') {
         formData.append('avatar', values.file);
@@ -54,8 +52,8 @@ function UserInfoModal2({ onClose }) {
     >
       {({ values, setFieldValue }) => (
         <FormContainer>
-          <label>
-            <Field
+          <AvatarLabel htmlFor="file">
+            <AvatarInput
               name="file"
               type="file"
               value={undefined}
@@ -65,12 +63,24 @@ function UserInfoModal2({ onClose }) {
                 );
                 if (event.target.files[0].size > 5000000)
                   return alert(`Image too big, choose another image`);
+                console.log(avatarTempUrl);
                 setPicture(avatarTempUrl);
                 setFieldValue('file', event.currentTarget.files[0]);
               }}
             />
-          </label>
-          <label>
+            <PlusSVG />
+            <AvatarImage
+              src={picture}
+              alt="User avatar"
+              width={60}
+              height={60}
+            />
+
+            <CrossSVG onClick={onClose} />
+          </AvatarLabel>
+
+          <label htmlFor="text">
+            Name
             <Field
               type="text"
               id="name"
@@ -81,27 +91,32 @@ function UserInfoModal2({ onClose }) {
               autoComplete="off"
             />
           </label>
-          <label>
-            <Field type="radio" name="subscription" value="starter" />
-          </label>
-          <label>
-            <Field type="radio" name="subscription" value="pro" />
-            pro
-          </label>
-          <label>
-            <Field type="radio" name="subscription" value="business" />
-            business
-          </label>
+          <RadioContainer
+            role="group"
+            aria-labelledby="subscription-radio-group"
+          >
+            <span>Subscription</span>
+            <label htmlFor="subscription">
+              <Field type="radio" name="subscription" value="starter" />
+              <span>starter</span>
+            </label>
+            <label>
+              <Field type="radio" name="subscription" value="pro" />
+              <span>pro</span>
+            </label>
+            <label>
+              <Field type="radio" name="subscription" value="business" />
+              <span>business</span>
+            </label>
+          </RadioContainer>
           <a href="https://send.monobank.ua/jar/2zJPLDZWzA?widget">
             Donate for Armed Forces of Ukraine
+            <img src={monobankPhoto} alt="monobankJar" width={60} height={60} />
           </a>
 
-          <img src={monobankPhoto} alt="monobankJar" width={60} height={60} />
-          <button type="submit">Submit</button>
-          <img src={picture} alt="User avatar" width={60} height={60} />
-          <label>
-            <Field type="checkbox" id="checkbox" name="checkbox" />
-          </label>
+          <ModalButton type="submit" aria-label="submit editing user profile">
+            Submit
+          </ModalButton>
         </FormContainer>
       )}
     </Formik>

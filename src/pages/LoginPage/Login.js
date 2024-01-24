@@ -8,7 +8,7 @@ import { useSearchParams } from 'react-router-dom';
 
 import DefaultButton from 'Utils/Button';
 import { useAuth } from 'Utils/Hooks/';
-import { GoogleRedirect } from './GoogleAuth';
+import { GoogleRedirect } from '../../components/GoogleAuth/GoogleAuth';
 
 export const Login = () => {
   const [password, setPassword] = useState('');
@@ -71,8 +71,8 @@ export const Login = () => {
               onChange={handleChange}
             />
           </label>
-          <label style={{ marginRight: '29px' }}>
-            password
+          <label htmlFor="password">
+            Password
             <input
               type="password"
               name="password"
@@ -80,6 +80,7 @@ export const Login = () => {
               onChange={handleChange}
             />
           </label>
+
           <DefaultButton
             type="submit"
             disabled={!disabledButton}
@@ -88,6 +89,8 @@ export const Login = () => {
           >
             Log in
           </DefaultButton>
+          <GoogleRedirect />
+
           <DefaultButton
             type="button"
             disabled={!email}
@@ -98,22 +101,6 @@ export const Login = () => {
           </DefaultButton>
         </LoginForm>
       )}
-      {/* <GoogleLogin
-        onSuccess={credentialResponse => {
-
-          
-          const qs = new URLSearchParams();
-          const decode = jwtDecode(credentialResponse.credential);
-          console.log(decode);
-        }}
-        onError={() => {
-          console.log('Login Failed');
-        }}
-      /> */}
-
-      <div>
-        <GoogleRedirect />
-      </div>
     </>
   );
 };
