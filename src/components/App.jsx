@@ -13,7 +13,6 @@ import { getIsFetchingCurrentUser } from 'redux/selectors';
 import PageLoader from './Loader/PageLoader';
 import { ToastContainer } from 'react-toastify';
 import { HomeText } from './Layout/Layout.styled';
-import UserInfoModal2 from 'HeaderNavigation/UserMenu/UpdateUserForm';
 
 // import WindowResizeHook from 'Utils/Hooks/WindowResizeHook';
 export default function App() {
@@ -33,15 +32,7 @@ export default function App() {
     <>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route
-            index
-            element={
-              <>
-                <UserInfoModal2 onClose={() => console.log('sd')} />
-                <HomeText>This project</HomeText>
-              </>
-            }
-          />
+          <Route index element={<HomeText>This project</HomeText>} />
           <Route
             path="/contacts"
             element={

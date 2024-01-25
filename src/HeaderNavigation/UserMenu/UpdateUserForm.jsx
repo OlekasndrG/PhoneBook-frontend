@@ -22,8 +22,7 @@ function UserInfoModal2({ onClose }) {
   const { name, avatar } = useAuth();
   const dispatch = useDispatch();
   const [picture, setPicture] = useState(avatar || defaultimage);
-  console.log('rebeder USermodal');
-  console.log();
+
   const handleSubmit = (values, actions) => {
     const formData = new FormData();
 
@@ -56,6 +55,7 @@ function UserInfoModal2({ onClose }) {
             <AvatarInput
               name="file"
               type="file"
+              accept=".jpg, .jpeg, .png"
               value={undefined}
               onChange={event => {
                 const avatarTempUrl = URL.createObjectURL(
@@ -79,7 +79,7 @@ function UserInfoModal2({ onClose }) {
             <CrossSVG onClick={onClose} />
           </AvatarLabel>
 
-          <label htmlFor="text">
+          <label htmlFor="name">
             Name
             <Field
               type="text"

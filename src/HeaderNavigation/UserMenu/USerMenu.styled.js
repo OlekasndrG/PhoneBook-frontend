@@ -1,16 +1,16 @@
 import { SearchButton } from 'components/Contacts/Contacts.styled';
 import styled from 'styled-components';
 import { Form } from 'formik';
+import { ModalButton } from './UpdateUserForm.styled';
 export const UserMenuContainer = styled.div`
   display: flex;
   margin-left: auto;
   height: 40px;
-  p {
-    font-family: inherit;
-    font-weight: bold;
-    margin-right: 10px;
-    color: rgb(146, 171, 207);
-  }
+  gap: 6px;
+`;
+export const NavigationButton = styled(ModalButton)`
+  background-color: whitesmoke;
+  width: 80px;
 `;
 
 export const FormContainer = styled(Form)`
@@ -30,5 +30,5 @@ export const FormContainer = styled(Form)`
 export const UserMenuButton = styled(SearchButton)`
   font-size: 14px;
   font-weight: bold;
-  padding: 0 14px;
+  padding: 8px;
 `;

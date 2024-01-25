@@ -1,7 +1,6 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-import { getUserAvatar, getUserName, getisLoading } from 'redux/selectors';
-import { UserMenuButton, UserMenuContainer } from './USerMenu.styled';
+import { NavigationButton, UserMenuContainer } from './USerMenu.styled';
 import { logOutUser } from 'redux/auth/AuthOperations';
 
 import UserInfoModal2 from 'HeaderNavigation/UserMenu/UpdateUserForm';
@@ -9,12 +8,12 @@ import UserInfoModal2 from 'HeaderNavigation/UserMenu/UpdateUserForm';
 import Loader from 'components/Loader/Loader';
 import { useState } from 'react';
 import { Modal } from 'Utils/Modal/Modal';
+import { useAuth } from 'Utils/Hooks';
 
 export const UserMenu = () => {
   const dispatch = useDispatch();
-  const userName = useSelector(getUserName);
-  const avatar = useSelector(getUserAvatar);
-  const isLoading = useSelector(getisLoading);
+  const { loading, name, avatar } = useAuth();
+
   const [showModal, setShowModal] = useState(false);
 
   const toggleModal = () => {
@@ -25,26 +24,30 @@ export const UserMenu = () => {
   };
   return (
     <UserMenuContainer>
-      {isLoading ? (
+      {loading ? (
         <Loader />
       ) : (
         <>
-          <p onClick={openModal}>Welcome, {userName}</p>
-          <img src={avatar} alt="User avatar" width={60} height={60} />
-          <UserMenuButton type="button" onClick={() => dispatch(logOutUser())}>
-            Log out
-          </UserMenuButton>
+          <button type="button" onClick={openModal}>
+            <p>Welcome, {name}</p>
+            <img src={avatar} alt="User avatar" width={88} height={88} />
+          </button>
           {showModal && (
             <Modal onClose={toggleModal}>
-              {isLoading ? (
-                <Loader />
-              ) : (
-                <UserInfoModal2 onClose={toggleModal} />
-              )}
+              <UserInfoModal2 onClose={toggleModal} />
             </Modal>
           )}
+
+          <NavigationButton
+            type="button"
+            onClick={() => dispatch(logOutUser())}
+            aria-label="logout user"
+          >
+            Log out
+          </NavigationButton>
         </>
       )}
     </UserMenuContainer>
   );
 };
+//  <UserInfoModal2 onClose={() => console.log('sd')} />;

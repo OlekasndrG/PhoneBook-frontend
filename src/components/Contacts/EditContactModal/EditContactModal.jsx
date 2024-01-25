@@ -1,217 +1,157 @@
 import React, { useState } from 'react';
 
-import { useAuth } from 'Utils/Hooks/useAuth';
-
 import DeleteModal from 'components/modal/DeleteModal';
 
 import defaultimage from '../../../images/photo.jpg';
 import { useUpdateContactMutation } from 'redux/contacts/contactsOperations';
+import {
+  AvatarImage,
+  AvatarInput,
+  CheckBoxContainer,
+  FormContainer,
+} from './EditContactModal.styled';
+import { ErrorMessage, Field, Formik } from 'formik';
+import {
+  AvatarLabel,
+  CrossSVG,
+  ModalButton,
+  PlusSVG,
+} from 'HeaderNavigation/UserMenu/UpdateUserForm.styled';
+import Loader from 'components/Loader/Loader';
+import { EditContactSchema } from 'Utils/Schemas/ContactSchema';
+import { FormikErrorMessage } from 'components/Phonebook/ContactsForm.styled';
 
 export const EditContactModal = ({ contact, onClose }) => {
-  console.log('render EditContact modal');
-  const { subscription } = useAuth();
-
-  const [updateContact] = useUpdateContactMutation();
-  const [avatar, setAvatar] = useState(contact.preview);
-  const [file, setFile] = useState(null);
-  const [name, setName] = useState(contact.name);
-  const [number, setNumber] = useState(contact.number);
-  const [favorite, setFavorite] = useState(contact.favorite);
+  const [updateContact, { isLoading }] = useUpdateContactMutation();
+  console.log(isLoading);
+  const [avatar, setAvatar] = useState(contact.preview || defaultimage);
 
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
-  // const businessSub = subscription === 'business';
-  // const starterSub = subscription === 'starter';
-  console.log(subscription === 'business');
-
-  const uploadFile = e => {
-    if (!e.target.files[0]) return;
-    if (e.target.files[0].size > 5000000)
-      return alert(`Image too big, choose another image`);
-
-    const avatarTempUrl = URL.createObjectURL(e.target.files[0]);
-
-    setAvatar(avatarTempUrl);
-    setFile(e.target.files[0]);
-  };
-
-  const handleSubmit = e => {
-    e.preventDefault();
+  const handleSubmit = async (values, actions) => {
     const formData = new FormData();
     formData.append('_id', contact._id);
-    if (name) {
-      formData.append('name', name);
-    }
-    if (number) {
-      formData.append('number', number);
-    }
-    // if (favorite) {
-    //   formData.append('favorite', favorite.checked);
-    // }
-    if (file) {
-      formData.append('documents', file);
-    }
-    console.log(formData);
-    updateContact(formData);
+    Object.keys(values).forEach(key => {
+      if (key === 'file') {
+        formData.append('documents', values.file);
+      } else {
+        formData.append(key, values[key]);
+      }
+    });
+    await updateContact(formData);
+    actions.resetForm();
     onClose();
   };
 
   return (
     <>
-      {openDeleteModal && (
-        <DeleteModal
-          closeDeleteModal={() => setOpenDeleteModal(false)}
-          contact={contact}
-        />
-      )}
+      <Formik
+        validationSchema={EditContactSchema}
+        initialValues={{
+          file: avatar,
+          name: contact.name ?? '',
+          number: contact.number,
+          subscription: 'starter',
+          favorite: false,
+        }}
+        validateOnChange={false}
+        validateOnBlur={false}
+        onSubmit={handleSubmit}
+      >
+        {({ values, errors, setFieldValue }) => (
+          <FormContainer>
+            <AvatarLabel htmlFor="file">
+              <AvatarInput
+                name="file"
+                type="file"
+                value={undefined}
+                accept=".jpg, .jpeg, .png"
+                errors={errors.file}
+                onChange={event => {
+                  const avatarTempUrl = URL.createObjectURL(
+                    event.target.files[0]
+                  );
+                  if (event.target.files[0].size > 5000000)
+                    return alert(`Image too big, choose another image`);
 
-      <form>
-        <label htmlFor="name">
-          <input
-            type="text"
-            id="name"
-            name="name"
-            placeholder={name}
-            onChange={e => {
-              setName(e.target.value);
-            }}
-            value={name}
-            autoComplete="off"
-          />
-        </label>
-        <label htmlFor="number">
-          <input
-            type="text"
-            id="number"
-            name="number"
-            placeholder={number}
-            onChange={e => {
-              setNumber(e.target.value);
-            }}
-            value={name}
-            autoComplete="off"
-          />
-        </label>
-        <label htmlFor="favorite">
-          favorite
-          <input
-            type="checkbox"
-            id="favorite"
-            name="favorite"
-            onChange={e => {
-              setFavorite(e.target.value);
-            }}
-            checked={favorite}
-          ></input>
-        </label>
-        <label htmlFor="contact_preview_image">
-          <input
-            type="file"
-            accept=".jpg, .jpeg, .png"
-            id="contact_preview_image"
-            name="contact_preview_image"
-            onChange={uploadFile}
-          />
+                  setAvatar(avatarTempUrl);
+                  setFieldValue('file', event.currentTarget.files[0]);
+                }}
+              />
+              <PlusSVG />
+              <AvatarImage
+                src={avatar}
+                alt="Contact preview"
+                width={60}
+                height={60}
+              />
 
-          <img
-            src={avatar || defaultimage}
-            alt="contact_preview_image"
-            width={60}
-            height={60}
-          />
-        </label>
-        <button type="button" onClick={() => setOpenDeleteModal(true)}>
-          delete
-        </button>
+              <CrossSVG onClick={onClose} />
+            </AvatarLabel>
 
-        <button
-          type="submit"
-          onClick={handleSubmit}
-          aria-label="edit contact submit button"
-        >
-          Edit
-        </button>
-      </form>
+            <label htmlFor="name">
+              Name
+              <Field
+                type="text"
+                id="name"
+                name="name"
+                placeholder={contact.name}
+                onChange={e => setFieldValue('name', e.target.value)}
+                value={values.name}
+                autoComplete="off"
+                errors={errors.name}
+              />
+              <ErrorMessage name="name" component={FormikErrorMessage} />
+            </label>
+
+            <label htmlFor="number">
+              Number
+              <Field
+                type="text"
+                id="number"
+                name="number"
+                placeholder={contact.number}
+                onChange={e => setFieldValue('number', e.target.value)}
+                value={values.number}
+                errors={errors.number}
+                autoComplete="off"
+              />
+              <ErrorMessage name="number" />
+            </label>
+            <CheckBoxContainer htmlFor="favorite">
+              <span>Favorite</span>
+              <Field
+                type="checkbox"
+                id="favorite"
+                name="favorite"
+                errors={errors.favorite}
+                onChange={e => {
+                  console.log(e.target.checked);
+                  setFieldValue('favorite', e.target.checked);
+                }}
+                checked={values.favorite}
+              />
+            </CheckBoxContainer>
+
+            <ModalButton type="submit" aria-label="submit editing user profile">
+              {isLoading ? <Loader /> : <span>Submit</span>}
+            </ModalButton>
+            <ModalButton
+              type="button"
+              aria-label="open modal to delete current contact from phonebook"
+              onClick={() => setOpenDeleteModal(true)}
+            >
+              Delete
+            </ModalButton>
+            {openDeleteModal && (
+              <DeleteModal
+                closeDeleteModal={() => setOpenDeleteModal(false)}
+                contact={contact}
+              />
+            )}
+          </FormContainer>
+        )}
+      </Formik>
     </>
   );
 };
-
-// export default EditContactModal;
-
-// export const EditedContactItem = ({ contact }) => {
-//   const [updateContact, { isLoading }] = useUpdateContactMutation();
-//   const [avatar, setAvatar] = useState(contact.preview);
-//   const [file, setFile] = useState(null);
-//   const [openEditModal, setOpenEditModal] = useState(false);
-
-//   // console.log(evenetEmitter.setMaxListeners());
-// const uploadFile = e => {
-//   if (!e.target.files[0]) return;
-//   if (e.target.files[0].size > 5000000)
-//     return alert(`Image too big, choose another image`);
-
-//   const avatarTempUrl = URL.createObjectURL(e.target.files[0]);
-
-//   setAvatar(avatarTempUrl);
-//   setFile(e.target.files[0]);
-// };
-
-// const handleSubmit = e => {
-//   e.preventDefault();
-//   const formData = new FormData();
-//   formData.append('_id', contact._id);
-//   if (file) {
-//     formData.append('documents', file);
-//   }
-
-//   updateContact(formData);
-// };
-
-//   return (
-//     <>
-//       {isLoading ? (
-//         <Loader />
-//       ) : (
-//         <Contact key={contact._id}>
-// <label htmlFor="contact_preview_image">
-//   <input
-//     type="file"
-//     accept=".jpg, .jpeg, .png"
-//     id="contact_preview_image"
-//     name="contact_preview_image"
-//     onChange={uploadFile}
-//   />
-//   {/* <Plus className={css.addAvatarUrl} id="modal" /> */}
-
-//   <img
-//     src={avatar || defaultimage}
-//     alt="contact_preview_image"
-//     width={60}
-//     height={60}
-//   />
-//   {/* <Cross className={css.cross} onClick={onClose} /> */}
-// </label>
-
-//           <div>
-//             {contact.name} : {contact.number}
-//           </div>
-//           <button type="button" onClick={handleSubmit}>
-//             new image
-//           </button>
-
-//           <SearchButton type="button" onClick={() => setOpenEditModal(true)}>
-//             Edit contact
-//           </SearchButton>
-//           {openEditModal && (
-//             <Modal onClose={() => setOpenEditModal(false)}>
-//               <EditContactModal contact={contact} />
-//             </Modal>
-//           )}
-//         </Contact>
-//       )}
-//     </>
-//   );
-// };
-// EditedContactItem.propTypes = {
-//   contact: PropTypes.object.isRequired,
-// };

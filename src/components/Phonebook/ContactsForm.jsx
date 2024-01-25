@@ -1,19 +1,15 @@
 import React, { memo } from 'react';
-import { Formik, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import { FormContainer, FormikErrorMessage } from './ContactsForm.styled';
+import { Formik, ErrorMessage } from 'formik';
+import {
+  FormContainer,
+  FormInput,
+  FormikErrorMessage,
+} from './ContactsForm.styled';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
+import { AddContactSchema } from 'Utils/Schemas/ContactSchema';
 // const phoneRegExp =
 //   /^$| ^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
-const SignupSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(2, 'Too Short!')
-    .max(70, 'Too Long!')
-    .required('Please enter name'),
-  number: Yup.number().required('Please enter number'),
-  // number: Yup.string().matches(phoneRegExp, 'Phone number is not valid'),
-});
 
 const initialValues = {
   name: '',
@@ -49,26 +45,38 @@ const ContactsForm = ({ contacts, onAdd }) => {
     <>
       <Formik
         initialValues={initialValues}
-        validationSchema={SignupSchema}
+        validationSchema={AddContactSchema}
+        validateOnChange={false}
+        validateOnBlur={false}
         onSubmit={formSubmitHandler}
       >
         {({ errors, isSubmitting, touched, isValid, dirty }) => (
           <FormContainer encType="multipart/formdata">
             <label htmlFor="name">
               Name
-              <Field type="text" name="name" id="name" />
+              <FormInput
+                type="text"
+                name="name"
+                id="name"
+                errors={errors.name}
+              />
               <ErrorMessage name="name" component={FormikErrorMessage} />
             </label>
 
             <label htmlFor="number">
               Number
-              <Field type="text" name="number" id="number" />
+              <FormInput
+                type="text"
+                name="number"
+                id="number"
+                errors={errors.number}
+              />
               <ErrorMessage name="number" component={FormikErrorMessage} />
             </label>
 
             <button
               type="submit"
-              disabled={isSubmitting || !touched || !isValid || !dirty}
+              disabled={isSubmitting}
               aria-label="add-to-contacts-button"
             >
               Add to contacts

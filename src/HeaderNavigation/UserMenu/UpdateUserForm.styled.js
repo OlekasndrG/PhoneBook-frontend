@@ -89,6 +89,7 @@ export const AvatarInput = styled(Field)`
   opacity: 0;
   z-index: 3;
   cursor: pointer;
+
 `;
 export const RadioContainer = styled.div`
   display: flex;

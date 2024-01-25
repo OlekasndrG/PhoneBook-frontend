@@ -1,3 +1,4 @@
+import { ModalButton } from 'HeaderNavigation/UserMenu/UpdateUserForm.styled';
 import { DeleteModalContainer } from './DeleteModal.styled';
 import { useDeleteContactMutation } from 'redux/contacts/contactsOperations';
 import { Modal } from 'Utils/Modal/Modal';
@@ -9,14 +10,26 @@ const DeleteModal = ({ closeDeleteModal, contact }) => {
   return (
     <Modal onClose={closeDeleteModal}>
       <DeleteModalContainer>
-        <p>Are You sure You want to delete {contact.name}?</p>
-        <button type="button" onClick={() => deleteContact(contact._id)}>
-          delete contact
-        </button>
+        <p>
+          Are You sure You want to delete {contact.name} from your Phonebook?
+        </p>
+        <div>
+          <ModalButton
+            type="button"
+            onClick={() => deleteContact(contact._id)}
+            aria-label="deleting contact from your phonebook "
+          >
+            Delete contact
+          </ModalButton>
 
-        <button type="button" onClick={closeDeleteModal}>
-          Go back
-        </button>
+          <ModalButton
+            type="button"
+            onClick={closeDeleteModal}
+            aria-label="closing the delete modal"
+          >
+            Go back
+          </ModalButton>
+        </div>
       </DeleteModalContainer>
     </Modal>
   );

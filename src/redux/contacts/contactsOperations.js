@@ -101,6 +101,7 @@ export const contactsRTK = createApi({
         method: 'PATCH',
         body: contact,
       }),
+      invalidatesTags: ['Contact'],
       // invalidatesTags: (result, error, arg) => [
       //   { type: 'Contact', _id: arg._id },
       // ],
