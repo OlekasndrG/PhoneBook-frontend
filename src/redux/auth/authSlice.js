@@ -77,7 +77,7 @@ const authSlice = createSlice({
       })
       .addCase(getCurrentUser.fulfilled, (state, action) => {
         state.user = action.payload;
-        state.user.avatarURL = action.payload.avatarURL;
+        // state.user.avatarURL = action.payload.avatarURL;
         state.isLoggedIn = true;
         state.isFetchingCurrentUser = false;
       })

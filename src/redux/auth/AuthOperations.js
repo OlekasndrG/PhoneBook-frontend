@@ -6,9 +6,9 @@ import 'react-toastify/dist/ReactToastify.css';
 
 // const baseUrl = 'https://connections-api.herokuapp.com';
 // REACT_APP_BASE_URL;
-const URL2 = process.env.REACT_APP_BASE_URL;
+// const URL2 = process.env.REACT_APP_BASE_URL;
 const BASE_URL = process.env.REACT_APP_PRODUCTION_URL;
-axios.defaults.baseURL = URL2;
+axios.defaults.baseURL = BASE_URL;
 
 // fetch('', {
 //   method: 'POST',
