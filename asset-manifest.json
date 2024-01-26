@@ -1,19 +1,20 @@
 {
   "files": {
     "main.css": "/static/css/main.fc553490.css",
-    "main.js": "/static/js/main.edca3c64.js",
+    "main.js": "/static/js/main.04869c51.js",
     "static/media/Car.gif": "/static/media/Car.d823da6b425f9fe8da83.gif",
     "static/media/photo.jpg": "/static/media/photo.894ec623b3e2a62edcbf.jpg",
     "static/media/monobankPhoto.jpg": "/static/media/monobankPhoto.8dfeecf6e5cb9c7d278f.jpg",
     "static/media/GoogleLogo.svg": "/static/media/GoogleLogo.3a317da0f7a468e2aa36decf33e5138d.svg",
     "index.html": "/index.html",
+    "static/media/DeleteIcon.svg": "/static/media/DeleteIcon.44339d54d3cef6801ff90d525da79a98.svg",
     "static/media/Plus.svg": "/static/media/Plus.a15d17a7c0aaacf433fcf370e604b04f.svg",
     "static/media/Cross.svg": "/static/media/Cross.e1599e5429ca59a66b56cd3ff8cf6357.svg",
     "main.fc553490.css.map": "/static/css/main.fc553490.css.map",
-    "main.edca3c64.js.map": "/static/js/main.edca3c64.js.map"
+    "main.04869c51.js.map": "/static/js/main.04869c51.js.map"
   },
   "entrypoints": [
     "static/css/main.fc553490.css",
-    "static/js/main.edca3c64.js"
+    "static/js/main.04869c51.js"
   ]
 }
