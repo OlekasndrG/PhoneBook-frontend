@@ -1,17 +1,16 @@
-import { useDispatch } from 'react-redux';
-
-import { NavigationButton, UserMenuContainer } from './USerMenu.styled';
-import { logOutUser } from 'redux/auth/AuthOperations';
-
 import UserInfoModal2 from 'HeaderNavigation/UserMenu/UpdateUserForm';
 
 import Loader from 'components/Loader/Loader';
 import { useState } from 'react';
 import { Modal } from 'Utils/Modal/Modal';
 import { useAuth } from 'Utils/Hooks';
+import {
+  NavigationButton,
+  UserInterfaceContainer,
+  UserMenuContainer,
+} from './USerMenu.styled';
 
 export const UserMenu = () => {
-  const dispatch = useDispatch();
   const { loading, name, avatar } = useAuth();
 
   const [showModal, setShowModal] = useState(false);
@@ -28,22 +27,21 @@ export const UserMenu = () => {
         <Loader />
       ) : (
         <>
-          <button type="button" onClick={openModal}>
+          <UserInterfaceContainer>
+            <img src={avatar} alt="User avatar" width={40} height={40} />
             <p>Welcome, {name}</p>
-            <img src={avatar} alt="User avatar" width={88} height={88} />
-          </button>
+          </UserInterfaceContainer>
           {showModal && (
             <Modal onClose={toggleModal}>
               <UserInfoModal2 onClose={toggleModal} />
             </Modal>
           )}
-
           <NavigationButton
             type="button"
-            onClick={() => dispatch(logOutUser())}
+            onClick={openModal}
             aria-label="logout user"
           >
-            Log out
+            Edit Profile
           </NavigationButton>
         </>
       )}

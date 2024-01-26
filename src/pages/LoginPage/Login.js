@@ -41,7 +41,13 @@ export const Login = () => {
     // setDisabled(true);
     e.currentTarget.reset();
   };
-
+  const handleDemoSubmit = e => {
+    e.preventDefault();
+    dispatch(
+      loginUser({ password: '123456', email: 'doyanij485@konican.com' })
+    );
+    // e.currentTarget.reset();
+  };
   useEffect(() => {
     const verifyRequest = async () => {
       try {
@@ -88,6 +94,15 @@ export const Login = () => {
             loader={loading}
           >
             Log in
+          </DefaultButton>
+          <DefaultButton
+            type="button"
+            onClick={handleDemoSubmit}
+            // disabled={!disabledButton}
+            aria-label="login-button"
+            loader={loading}
+          >
+            Try Demo
           </DefaultButton>
           <GoogleRedirect />
 

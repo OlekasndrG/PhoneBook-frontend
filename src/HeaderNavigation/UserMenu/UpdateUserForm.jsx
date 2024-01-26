@@ -15,7 +15,7 @@ import {
   RadioContainer,
 } from './UpdateUserForm.styled';
 
-import { updateUser } from 'redux/auth/AuthOperations';
+import { logOutUser, updateUser } from 'redux/auth/AuthOperations';
 import { useAuth } from 'Utils/Hooks/';
 
 function UserInfoModal2({ onClose }) {
@@ -40,86 +40,100 @@ function UserInfoModal2({ onClose }) {
   };
 
   return (
-    <Formik
-      initialValues={{
-        file: null,
-        name: name ?? '',
-        subscription: 'starter',
-        checkbox: false,
-      }}
-      onSubmit={handleSubmit}
-    >
-      {({ values, setFieldValue }) => (
-        <FormContainer>
-          <AvatarLabel htmlFor="file">
-            <AvatarInput
-              name="file"
-              type="file"
-              accept=".jpg, .jpeg, .png"
-              value={undefined}
-              onChange={event => {
-                const avatarTempUrl = URL.createObjectURL(
-                  event.target.files[0]
-                );
-                if (event.target.files[0].size > 5000000)
-                  return alert(`Image too big, choose another image`);
-                console.log(avatarTempUrl);
-                setPicture(avatarTempUrl);
-                setFieldValue('file', event.currentTarget.files[0]);
-              }}
-            />
-            <PlusSVG />
-            <AvatarImage
-              src={picture}
-              alt="User avatar"
-              width={60}
-              height={60}
-            />
+    <>
+      <Formik
+        initialValues={{
+          file: null,
+          name: name ?? '',
+          subscription: 'starter',
+          checkbox: false,
+        }}
+        onSubmit={handleSubmit}
+      >
+        {({ values, setFieldValue }) => (
+          <FormContainer>
+            <AvatarLabel htmlFor="file">
+              <AvatarInput
+                name="file"
+                type="file"
+                accept=".jpg, .jpeg, .png"
+                value={undefined}
+                onChange={event => {
+                  const avatarTempUrl = URL.createObjectURL(
+                    event.target.files[0]
+                  );
+                  if (event.target.files[0].size > 5000000)
+                    return alert(`Image too big, choose another image`);
+                  console.log(avatarTempUrl);
+                  setPicture(avatarTempUrl);
+                  setFieldValue('file', event.currentTarget.files[0]);
+                }}
+              />
+              <PlusSVG />
+              <AvatarImage
+                src={picture}
+                alt="User avatar"
+                width={60}
+                height={60}
+              />
 
-            <CrossSVG onClick={onClose} />
-          </AvatarLabel>
+              <CrossSVG onClick={onClose} />
+            </AvatarLabel>
 
-          <label htmlFor="name">
-            Name
-            <Field
-              type="text"
-              id="name"
-              name="name"
-              placeholder={name}
-              onChange={e => setFieldValue('name', e.target.value)}
-              value={values.name}
-              autoComplete="off"
-            />
-          </label>
-          <RadioContainer
-            role="group"
-            aria-labelledby="subscription-radio-group"
-          >
-            <span>Subscription</span>
-            <label htmlFor="subscription">
-              <Field type="radio" name="subscription" value="starter" />
-              <span>starter</span>
+            <label htmlFor="name">
+              Name
+              <Field
+                type="text"
+                id="name"
+                name="name"
+                placeholder={name}
+                onChange={e => setFieldValue('name', e.target.value)}
+                value={values.name}
+                autoComplete="off"
+              />
             </label>
-            <label>
-              <Field type="radio" name="subscription" value="pro" />
-              <span>pro</span>
-            </label>
-            <label>
-              <Field type="radio" name="subscription" value="business" />
-              <span>business</span>
-            </label>
-          </RadioContainer>
-          <a href="https://send.monobank.ua/jar/2zJPLDZWzA?widget">
-            Donate for Armed Forces of Ukraine
-            <img src={monobankPhoto} alt="monobankJar" width={60} height={60} />
-          </a>
+            <RadioContainer
+              role="group"
+              aria-labelledby="subscription-radio-group"
+            >
+              <span>Subscription</span>
+              <label htmlFor="subscription">
+                <Field type="radio" name="subscription" value="starter" />
+                <span>starter</span>
+              </label>
+              <label>
+                <Field type="radio" name="subscription" value="pro" />
+                <span>pro</span>
+              </label>
+              <label>
+                <Field type="radio" name="subscription" value="business" />
+                <span>business</span>
+              </label>
+            </RadioContainer>
+            <a href="https://send.monobank.ua/jar/2zJPLDZWzA?widget">
+              Donate for Armed Forces of Ukraine
+              <img
+                src={monobankPhoto}
+                alt="monobankJar"
+                width={60}
+                height={60}
+              />
+            </a>
 
-          <ModalButton type="submit" aria-label="submit editing user profile">
-            Submit
-          </ModalButton>
-        </FormContainer>
-      )}
-    </Formik>
+            <ModalButton type="submit" aria-label="submit editing user profile">
+              Submit
+            </ModalButton>
+            <ModalButton
+              type="button"
+              onClick={() => dispatch(logOutUser())}
+              aria-label="logout user"
+            >
+              Log out
+            </ModalButton>
+          </FormContainer>
+        )}
+      </Formik>
+    </>
   );
 }
 

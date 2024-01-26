@@ -15,6 +15,7 @@ import { ToastContainer } from 'react-toastify';
 import { HomeText } from './Layout/Layout.styled';
 
 // import WindowResizeHook from 'Utils/Hooks/WindowResizeHook';
+// demo - doyanij485@konican.com password 123456
 export default function App() {
   const isFetchingCurrentUser = useSelector(getIsFetchingCurrentUser);
 

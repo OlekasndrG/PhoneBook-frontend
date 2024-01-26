@@ -6,11 +6,33 @@ export const UserMenuContainer = styled.div`
   display: flex;
   margin-left: auto;
   height: 40px;
-  gap: 6px;
+  gap: 16px;
 `;
 export const NavigationButton = styled(ModalButton)`
-  background-color: whitesmoke;
-  width: 80px;
+  background-color: rgba(255, 255, 255, 0.12);
+  padding: 8px;
+  width: 110px;
+  height: 48px;
+  color: white;
+`;
+export const UserInterfaceContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: rgba(255, 255, 255, 0.12); */
+  height: 48px;
+  gap: 16px;
+  flex-direction: row;
+
+  padding: 0 8px;
+  img {
+    border-radius: 50%;
+  }
+  p {
+    font-weight: bold;
+    font-size: 14;
+    color: white;
+  }
 `;
 
 export const FormContainer = styled(Form)`

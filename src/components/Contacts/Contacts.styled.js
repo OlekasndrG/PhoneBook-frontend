@@ -8,14 +8,13 @@ export const ContactsContainer = styled.ul`
   /* box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
     rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
     rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px; */
-  gap: 15px;
+  gap: 20px;
   font-family: inherit;
   overflow-y: auto;
   max-height: 350px;
   width: 100%;
   padding: 0;
 
- 
   button {
     margin-left: 15px;
     font-family: inherit;
@@ -54,6 +53,10 @@ export const Contact = styled.li`
   justify-content: space-between;
   font-size: 18px;
   font-weight: 600;
+
+  img {
+    border-radius: 50%;
+  }
   /* gap: 15px; */
 `;
 export const SearchButton = styled.button`
@@ -63,7 +66,7 @@ export const SearchButton = styled.button`
   padding: 8px;
   border: none;
   opacity: 0.6;
- 
+
   cursor: pointer;
   border-radius: 10px;
   background-image: linear-gradient(
@@ -73,7 +76,6 @@ export const SearchButton = styled.button`
   );
   outline: none;
   :hover {
-
     svg {
       fill: blue;
     }

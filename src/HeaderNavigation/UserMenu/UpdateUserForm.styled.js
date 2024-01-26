@@ -13,11 +13,11 @@ export const FormContainer = styled(Form)`
   align-items: center;
   justify-content: center;
   width: 320px;
-  height: 40px;
+
   font-family: inherit;
   font-weight: bold;
   border-radius: 18px;
-  height: 500px;
+  height: 600px;
   gap: 15px;
   background-color: rgb(146, 171, 207);
   padding: 15px 0;
@@ -89,7 +89,6 @@ export const AvatarInput = styled(Field)`
   opacity: 0;
   z-index: 3;
   cursor: pointer;
-
 `;
 export const RadioContainer = styled.div`
   display: flex;

@@ -31,14 +31,13 @@ export const EditedContactItem = ({ contact }) => {
           <SearchButton
             type="button"
             onClick={() => {
-          
               setOpenEditModal(true);
             }}
           >
             Edit contact
           </SearchButton>
           {openEditModal && (
-            <Modal onClose={() => setOpenEditModal(false)}>
+            <Modal onClose={() => console.log('sdsd')}>
               <EditContactModal
                 contact={contact}
                 onClose={() => setOpenEditModal(false)}

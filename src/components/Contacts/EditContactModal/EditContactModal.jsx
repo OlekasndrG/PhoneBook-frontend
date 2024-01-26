@@ -23,7 +23,7 @@ import { FormikErrorMessage } from 'components/Phonebook/ContactsForm.styled';
 
 export const EditContactModal = ({ contact, onClose }) => {
   const [updateContact, { isLoading }] = useUpdateContactMutation();
-  console.log(isLoading);
+
   const [avatar, setAvatar] = useState(contact.preview || defaultimage);
 
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
