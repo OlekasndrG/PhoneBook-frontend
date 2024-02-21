@@ -1,15 +1,17 @@
 import { Link, Outlet } from 'react-router-dom';
 
 import { NavContainer } from './Layout.styled';
-import { useSelector } from 'react-redux';
+
 import { getIsLoggedIn } from 'redux/selectors';
 import { UserMenu } from 'HeaderNavigation/UserMenu/UserMenu';
 import { StyledLink } from 'components/Contacts/Contacts.styled';
 import { Suspense } from 'react';
 import PageLoader from 'components/Loader/PageLoader';
+import { useAppSelector } from 'redux/storeTS';
 
-const Layout = () => {
-  const isLoggedIn = useSelector(getIsLoggedIn);
+const Layout2 = () => {
+  const isLoggedIn = useAppSelector(getIsLoggedIn);
+  console.log('layout2');
   // const userName = useSelector(getUserName);
   // const isFetchingCurrentUser = useSelector(getIsFetchingCurrentUser);
   return (
@@ -52,4 +54,4 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+export default Layout2;
