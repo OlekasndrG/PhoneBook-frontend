@@ -2,10 +2,12 @@
 Basic Phonebook SPA.
 Designed an intuitive user registration system, allowing onboarding. Integrated Google authentication. Implemented user-friendly profile editing, including avatar customization. Introduced subscription plans, offering distinct features such as contact limits, contact avatar editing, and favorites management based on user tiers (Starter, Pro, Business). Developed all main functionalities for adding, updating, and deleting contacts.Elevated code quality through optimization, refactoring, and a commitment to clean and rapid execution.
 
-To start using this App as Your Personal Phonebook You need to register at https://phone-book-frontend-omega.vercel.app/. After that confirm your email, log in and enjoy the App ! 
-Main features include: editing your profile in App, adding, updating and deleting contacts in Your Phonebook.
-For any suggestions feel free to contact me  
+To start using this App as Your Personal Phonebook You need to register at https://phone-book-frontend-omega.vercel.app/. <br>
+ After that confirm your email, log in and enjoy the App ! 
+Main features include: editing your profile in App, adding, updating and deleting contacts in Your Phonebook. <br>
+For any suggestions feel free to contact me !  
 
+If You want to use the project as a developer : <br>
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
