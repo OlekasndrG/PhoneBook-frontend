@@ -15,6 +15,7 @@ import { ErrorMessage, Field, Formik, FormikHelpers } from "formik";
 import { SignUpSchema } from "Utils/Schemas/SignupSchema";
 import { FormikErrorMessage } from "components/Phonebook/ContactsForm.styled";
 import DefaultButton from "Utils/Button";
+import { useAuth } from "Utils/Hooks";
 
 interface UserRegister {
   name: string;
@@ -30,8 +31,10 @@ const initialValues: UserRegister = {
 
 export const RegistrationFormik: FC = () => {
   const [password, setPassword] = useState("");
+
   const dispatch = useAppDispatch();
   const user = useSelector(getUserName);
+  const { loading } = useAuth();
   let navigate = useNavigate();
   useEffect(() => {
     if (user) {
@@ -42,7 +45,6 @@ export const RegistrationFormik: FC = () => {
     values: UserRegister,
     actions: FormikHelpers<UserRegister>
   ) => {
-    console.log(values);
     actions.resetForm();
     dispatch(registerUser(values));
   };
@@ -130,6 +132,7 @@ export const RegistrationFormik: FC = () => {
             <DefaultButton
               type="submit"
               disabled={!values.password || !values.name || !values.email}
+              loader={loading}
             >
               Register
             </DefaultButton>

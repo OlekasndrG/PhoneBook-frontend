@@ -12,11 +12,12 @@ import PublicRoute from "Routes/PublicRoute";
 // import { getIsFetchingCurrentUser } from 'redux/selectors';
 // import PageLoader from './Loader/PageLoader';
 import { ToastContainer } from "react-toastify";
-import { HomeText } from "./Layout/Layout.styled";
+
 import { useAppDispatch } from "redux/storeTS";
 import { Login } from "pages/LoginPage/Login";
 import Layout2 from "./Layout/Layout2";
 import { RegistrationFormik } from "pages/RegisterPage/RegisterFormik";
+import Homepage from "pages/Homepage/Homepage";
 
 const Contacts = lazy(() => import("pages/ContactsPage/ContactsPage"));
 
@@ -35,7 +36,7 @@ export default function App() {
     <>
       <Routes>
         <Route path="/" element={<Layout2 />}>
-          <Route index element={<HomeText>This project</HomeText>} />
+          <Route index element={<Homepage />} />
           <Route
             path="contacts"
             element={

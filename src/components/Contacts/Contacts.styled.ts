@@ -1,3 +1,4 @@
+import { desktop, tablet } from "Utils/Breakpoints/Breakpoints";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 // import { ReactComponent as TrashIcon } from '../icons/search.svg';
@@ -85,7 +86,7 @@ export const SearchButton = styled.button`
 export const StyledLink = styled(NavLink)`
   display: inline-block;
   padding: 13px;
-  padding-top: 16px;
+
   /* padding-bottom: 20px; */
   border: none;
   outline: none;
@@ -105,10 +106,22 @@ export const StyledLink = styled(NavLink)`
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+
+  @media screen and (min-width: ${tablet}) {
+    /* max-width: none; */
+    padding: 16px;
+    /* min-width: 80px; */
+  }
+
+  @media screen and (min-width: ${desktop}) {
+    padding: 18px;
+  }
+
   :hover {
     color: red;
     opacity: 1.2;
   }
+
   &.active {
     color: red;
     background: #00ffd5;

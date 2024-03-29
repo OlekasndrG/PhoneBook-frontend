@@ -6,11 +6,7 @@ import {
   verify,
 } from "../../redux/auth/authOperationsTS";
 
-import {
-  
-  LoginFormWithoutFormik,
-  StyledPassword,
-} from "./Login.styled";
+import { LoginFormWithoutFormik, StyledPassword } from "./Login.styled";
 import { useSearchParams } from "react-router-dom";
 
 import DefaultButton from "Utils/Button";
@@ -19,11 +15,11 @@ import { GoogleRedirect } from "../../components/GoogleAuth/GoogleAuthTS";
 import { useAppDispatch } from "redux/storeTS";
 
 export const Login: FC = () => {
-  console.log("login tsx");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const { loading } = useAuth();
-
+  const [demoLoader, setDemoLoader] = useState(false);
+  const [loginLoader, setLoginLoader] = useState(false);
   // const [disabled, setDisabled] = useState(true);
 
   const dispatch = useAppDispatch();
@@ -47,6 +43,7 @@ export const Login: FC = () => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     dispatch(loginUser({ password, email }));
+    setLoginLoader(true);
     // setDisabled(true);
     // e.currentTarget.reset();
   };
@@ -55,6 +52,7 @@ export const Login: FC = () => {
     dispatch(
       loginUser({ password: "123456", email: "doyanij485@konican.com" })
     );
+    setDemoLoader(true);
     // e.currentTarget.reset();
   };
   useEffect(() => {
@@ -71,8 +69,7 @@ export const Login: FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const passWordLength = password.length;
-  console.log(passWordLength);
-  console.log(password.includes("s"));
+
   return (
     <>
       {!verificationToken && (
@@ -85,6 +82,7 @@ export const Login: FC = () => {
               name="email"
               id="email"
               value={email}
+              placeholder={"Please enter Your Eamil"}
               onChange={handleChange}
             />
           </label>
@@ -94,6 +92,7 @@ export const Login: FC = () => {
               type="password"
               name="password"
               value={password}
+              placeholder={"Please enter Your password"}
               onChange={handleChange}
             />
           </label>
@@ -102,7 +101,7 @@ export const Login: FC = () => {
             type="submit"
             disabled={!disabledButton}
             aria-label="login-button"
-            loader={loading}
+            loader={loading && loginLoader}
           >
             Log in
           </DefaultButton>
@@ -111,7 +110,7 @@ export const Login: FC = () => {
             onClick={handleDemoSubmit}
             // disabled={!disabledButton}
             aria-label="login-button"
-            loader={loading}
+            loader={loading && demoLoader}
           >
             Try Demo
           </DefaultButton>
@@ -127,7 +126,7 @@ export const Login: FC = () => {
           </DefaultButton>
           <StyledPassword $length={passWordLength}>
             {!passWordLength && <p>Enter Password</p>}
-            {passWordLength > 5 && passWordLength < 9 && <p>Weak password</p>}
+            {passWordLength < 9 && <p>Weak password</p>}
             {passWordLength >= 9 && !/[A-Z]/.test(password) && (
               <p>Medium password</p>
             )}

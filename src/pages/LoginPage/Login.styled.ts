@@ -103,12 +103,11 @@ export const LoginButtonContainer = styled.div`
   gap: 10px;
 `;
 export const StyledPassword = styled.div<StyledPasswordProps>`
-  width: 100%;
+  width: 215px;
   height: 25px;
   text-align: center;
   color: aliceblue;
   border-radius: 8px;
   display: ${(props) => (props.$length ? "block" : "none")};
-  background-color: ${(props) =>
-    props.$length > 6 ? "greenyellow" : "indianred"};
+  background-color: ${(props) => (props.$length >= 9 ? "green" : "indianred")};
 `;
